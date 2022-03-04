@@ -1,0 +1,31 @@
+service: supplier-service
+
+plugins:
+  - serverless-bundle
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-southeast-2
+  stage: ${opt:stage, 'dev'}
+  profile: jponc
+  memorySize: 128
+  apiGateway:
+    shouldStartNameWithService: true
+  tracing:
+    apiGateway: true
+    lambda: true
+
+functions:
+  get:
+    handler: handler.main
+    events:
+      - http: GET /
+
+custom:
+  customDomain:
+    domainName: ${ssm:/plannerax/${self:provider.stage}/DOMAIN}
+    basePath: 'supplier'
+    stage: ${self:provider.stage}
+    createRoute53Record: true
