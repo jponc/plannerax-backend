@@ -1,6 +1,0 @@
-custom:
-  customDomain:
-    domainName: ${ssm:/plannerax/${self:provider.stage}/DOMAIN}
-    basePath: 'supplier'
-    stage: ${self:provider.stage}
-    createRoute53Record: true
