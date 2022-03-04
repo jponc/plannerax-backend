@@ -1,8 +1,13 @@
 service: supplier-service
 
+frameworkVersion: '^2.27.0'
+
+
 plugins:
   - serverless-bundle
   - serverless-domain-manager
+  - serverless-offline-ssm-provider
+  - serverless-offline
 
 provider:
   name: aws
@@ -23,6 +28,8 @@ functions:
       - http: GET /healthcheck
 
 custom:
+  serverless-offline-ssm-provider:
+    file: .ssm
   customDomain:
     domainName: ${ssm:/plannerax/${self:provider.stage}/DOMAIN}
     basePath: 'supplier'
