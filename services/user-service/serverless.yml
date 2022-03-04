@@ -1,0 +1,30 @@
+service: user-service
+
+plugins:
+  - serverless-bundle
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-southeast-2
+  stage: ${opt:stage, 'dev'}
+  memorySize: 128
+  apiGateway:
+    shouldStartNameWithService: true
+  tracing:
+    apiGateway: true
+    lambda: true
+
+functions:
+  get:
+    handler: src/healthcheck.main
+    events:
+      - http: GET /healthcheck
+
+custom:
+  customDomain:
+    domainName: ${ssm:/plannerax/${self:provider.stage}/DOMAIN}
+    basePath: 'user'
+    stage: ${self:provider.stage}
+    createRoute53Record: true
