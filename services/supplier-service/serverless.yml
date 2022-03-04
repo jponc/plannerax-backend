@@ -5,7 +5,17 @@ plugins:
   - serverless-domain-manager
 
 provider:
-  ${file(../../serverless.common.yml):provider}
+  name: aws
+  runtime: nodejs14.x
+  region: ap-southeast-2
+  profile: jponc
+  stage: ${opt:stage, 'dev'}
+  memorySize: 128
+  apiGateway:
+    shouldStartNameWithService: true
+  tracing:
+    apiGateway: true
+    lambda: true
 
 functions:
   get:
