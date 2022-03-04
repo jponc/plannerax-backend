@@ -4,7 +4,8 @@ plugins:
   - serverless-bundle
   - serverless-domain-manager
 
-provider: ${file(../../serverless.common.yml):provider}
+provider:
+  ${file(../../serverless.common.yml):provider}
 
 functions:
   get:
