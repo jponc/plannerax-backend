@@ -17,7 +17,7 @@ provider:
     lambda: true
 
 functions:
-  get:
+  healthcheck:
     handler: src/healthcheck.main
     events:
       - http: GET /healthcheck
