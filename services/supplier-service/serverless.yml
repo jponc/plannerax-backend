@@ -8,7 +8,7 @@ provider: ${file(../../serverless.common.yml):provider}
 
 functions:
   get:
-    handler: handler.main
+    handler: src/healthcheck.main
     events:
       - http: GET /
 

@@ -1,13 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "outDir": "./dist",
-    "module": "commonjs",
-    "jsx": "react",
-    "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "baseUrl": ".",
+    "target": "es6",
+    "sourceMap": true,
+    "moduleResolution": "node"
   }
 }
