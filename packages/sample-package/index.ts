@@ -1,3 +1,3 @@
-export default const sample = () => {
+export const sample = () => {
   return "sample package";
 };

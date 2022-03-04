@@ -1,4 +1,4 @@
-import sample from "sample";
+import { sample } from "sample";
 import { lib } from "../../../libs";
 import { APIGatewayProxyHandler } from "aws-lambda";
 
