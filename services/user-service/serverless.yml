@@ -11,6 +11,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
+  profile: jponc
   region: ap-southeast-2
   stage: ${opt:stage, 'dev'}
   memorySize: 128
@@ -34,3 +35,53 @@ custom:
     basePath: 'user'
     stage: ${self:provider.stage}
     createRoute53Record: true
+
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: "AWS::Cognito::UserPool"
+      Properties:
+        MfaConfiguration: OFF
+        UserPoolName: plannerax-${self:provider.stage}-user-pool
+        UsernameAttributes:
+          - email
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+            RequireLowercase: False
+            RequireNumbers: True
+            RequireSymbols: False
+            RequireUppercase: True
+    CognitoUserPoolClient:
+      Type: "AWS::Cognito::UserPoolClient"
+      Properties:
+        ClientName: plannerax-${self:provider.stage}-user-pool-client
+        GenerateSecret: False
+        CallbackURLs:
+          - https://google.com
+        LogoutURLs:
+          - https://google.com
+        SupportedIdentityProviders:
+          - COGNITO
+        AllowedOAuthFlows:
+          - code
+          - implicit
+        AllowedOAuthFlowsUserPoolClient: true
+        AllowedOAuthScopes:
+          - phone
+          - email
+          - openid
+          - profile
+        UserPoolId:
+          Ref: CognitoUserPool
+    CognitoUserPoolDomain:
+      Type: "AWS::Cognito::UserPoolDomain"
+      Properties:
+        CustomDomainConfig:
+          CertificateArn: ${ssm:/jponc.dev/CERTIFICATE_ARN}
+        Domain: ${ssm:/plannerax/${self:provider.stage}/AUTH_DOMAIN}
+        UserPoolId:
+          Ref: CognitoUserPool
+
+
+
