@@ -23,4 +23,8 @@ functions:
       - http: GET /healthcheck
 
 custom:
-  customDomain: ${file(../../serverless.common.yml):custom.customDomain}
+  customDomain:
+    domainName: ${ssm:/plannerax/${self:provider.stage}/DOMAIN}
+    basePath: 'supplier'
+    stage: ${self:provider.stage}
+    createRoute53Record: true
