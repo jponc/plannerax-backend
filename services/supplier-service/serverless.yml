@@ -20,7 +20,7 @@ functions:
   get:
     handler: src/healthcheck.main
     events:
-      - http: GET /
+      - http: GET /healthcheck
 
 custom:
   customDomain: ${file(../../serverless.common.yml):custom.customDomain}
