@@ -1,5 +1,5 @@
-import sample from "sample";
-import lib from "../../libs";
+import { sample } from "sample";
+import { lib } from "../../libs";
 
 export async function main(event: any, context: any) {
   return {
