@@ -1,4 +1,4 @@
-service: serverless-lerna-yarn-service1
+service: service1
 
 plugins:
   - serverless-bundle
